@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /about/
+Disallow: /license/
+Disallow: /works/
+Disallow: /index.xml
+Disallow: /*.json
+Disallow: /*?

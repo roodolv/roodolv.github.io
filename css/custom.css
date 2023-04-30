@@ -1,0 +1,27 @@
+/* Shortcodes */
+.private {
+  background: #5e2222;
+  color: #f88;
+  padding: 0.5em;
+  border: solid 3px #cc6565;
+}
+.private::before {
+  content: "------Private------";
+  display: block;
+  font-weight: bolder;
+}
+
+.steam-link {
+  width: 450px;
+  height: 200px;
+  max-width: 100%;
+}
+
+/* Custom */
+.sep {
+  width: 100%;
+}
+hr:not(.sep) {
+  border: dashed 1px #999;
+  width: 90%;
+}
