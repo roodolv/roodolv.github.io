@@ -25,3 +25,7 @@ hr:not(.sep) {
   border: dashed 1px #999;
   width: 90%;
 }
+
+.post-header > a {
+  padding-right: 0.3rem;
+}
