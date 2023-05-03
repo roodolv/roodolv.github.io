@@ -1,0 +1,103 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:type" content="article"><meta property="og:url" content="https://roodolv.dev/posts/2023/05/making-website-with-hugo/"><meta property="og:title" content="Hugoでブログをサクっと作った話 - dolvlog"><meta property="og:site_name" content="dolvlog"><meta property="og:description" content><meta name=twitter:card content="summary"><meta name=twitter:title content="Hugoでブログをサクっと作った話 - dolvlog"><meta name=twitter:creator content="@roodolv"><meta name=generator content="Hugo 0.111.3"><title>Hugoでブログをサクっと作った話 - dolvlog</title><meta name=description content="作ってみたのでその作業ログを置いておきます
+まずサイトを作る 特に意識したいポイント 書きたいときにすぐ書ける環境 を作る
+とにかく まず作る、完成させる、公開する
+気合入れて テーマや機能をいじりすぎない ことが重要 利用するツール・サービス 静的サイトジェネレータ: Hugo ホスティング: G..."><link rel=stylesheet href=/css/ui.css><link rel=stylesheet href=/css/custom.css><link rel=stylesheet href=/css/fonts.css><script defer src=/js/dark-mode.js></script>
+<link disabled id=dark-mode-theme rel=stylesheet href=/css/dark.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway"><link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/hybrid.min.css><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js></script></head><body><header class="container no-print"><div class=u-header><nav class=bar><ul><li><a href=/><img class=icon-text src=/img/prev.svg></a></li><li><img class=icon-text id=dark-mode-toggle src=/img/moon-regular.svg alt="Toggle Dark Mode"></a></li><li><a href=/about>About</a></li><li><a href=/posts/>Posts</a></li><li><a href=/tags/>Tags</a></li></ul></nav></div></header><main class=container><article><header><hgroup id=brand><h1>Hugoでブログをサクっと作った話</h1><h5><time datetime="2023-05-03 20:14:06 +0900 +0900">2023-05-03</time>
+<span class="no-print post-header">-
+<a href=/tags/hugo>#hugo</a>
+<a href=/tags/css>#css</a>
+<a href=/tags/github-pages>#github-pages</a>
+<a href=/tags/github-actions>#github-actions</a>
+<a href=/tags/cloudflare>#cloudflare</a>
+<a href=/tags/dns>#dns</a>
+<span></h5></hgroup><hr class=sep></header><p>作ってみたのでその作業ログを置いておきます</p><hr><h2 id=まずサイトを作る>まずサイトを作る</h2><h3 id=特に意識したいポイント>特に意識したいポイント</h3><ul><li><p><strong>書きたいときにすぐ書ける環境</strong> を作る</p></li><li><p>とにかく <strong>まず作る、完成させる、公開する</strong></p><ul><li>気合入れて <strong>テーマや機能をいじりすぎない</strong> ことが重要</li></ul></li></ul><h3 id=利用するツールサービス>利用するツール・サービス</h3><ul><li>静的サイトジェネレータ: <strong>Hugo</strong></li><li>ホスティング: <strong>GitHub Pages</strong></li><li>CI/CD: <strong>GitHub Actions</strong><ul><li>実は以前使ったことのある <strong>CircleCI</strong> を使う予定だった</li><li>慣れたCircleCIよりもGitHub Actionsのを試してみたいと思いこちらを採用</li></ul></li></ul><h3 id=hugoテーマを選ぶ>Hugoテーマを選ぶ</h3><ul><li>下記2つが気に入った<ul><li><a href=https://themes.gohugo.io/themes/manis-hugo-theme/>Manis | Hugo Themes</a><ul><li>サンプル: <a href=https://www.musclesofquartz.com>https://www.musclesofquartz.com</a></li><li>チャット機能の <strong>Disqusとutterances</strong> (軽量なコメント系ウィジェット)対応</li><li><strong>前後記事へのリンク</strong> 付き</li></ul></li><li><a href=https://themes.gohugo.io/themes/ink-free/>ink-free | Hugo Themes</a><ul><li>サンプル: <a href=https://chollinger.com/blog/>https://chollinger.com/blog/</a></li><li>各記事リンクごとに <strong>タグ表示アリ</strong> なのがgood<ul><li>ただ、サンプルサイトの各タグからのリンクが間違ってて<code>blog/tags/</code>が<code>tags/</code>にリンクされて404エラーになる</li></ul></li><li>こっちも <strong>Disqus</strong> 対応らしい</li></ul></li></ul></li></ul><p>今回は <strong>Manis</strong> を使ってみることにした</p><h3 id=ローカルでhugoサイト新規作成>ローカルでHugoサイト新規作成</h3><p>Hugoはインストール済みなのでインストール方法は省略</p><ul><li>下記コマンドをターミナルで実行するだけ<ul><li>Hugoサイトの名前は<code>myblog</code>にした</li><li>テーマのインストールは<code>git submodule add</code>で行った<ul><li><code>clone</code>でやるとGitHub Actions(後述)のデプロイ時にエラーになる</li></ul></li></ul></li></ul><pre><code class=language-bash>$ cd PATH_TO_HUGO_DIR
+$ hugo new site myblog
+$ cd myblog &amp;&amp; git init
+$ cd themes
+$ git submodule add https://github.com/yursan9/manis-hugo-theme
+</code></pre><h3 id=編集ブランチと機能追加ブランチを分ける>編集ブランチと機能追加ブランチを分ける</h3><pre><code class=language-bash>$ git branch -a
+
+  custom-manis
+* edit
+  main
+</code></pre><ul><li><code>main</code>はCI/CDサービスからのpull(fetch)用ブランチ<ul><li>この<code>main</code>ブランチの<code>public</code>ディレクトリに関する変更差分がCI/CDサービスに検知される(はず)</li></ul></li><li><code>custom-manis</code>は全体に影響するCSS変更やShortcodesなどの機能追加用ブランチ</li><li><code>edit</code>は記事の追加・編集・プレビューを行うブランチ<ul><li>機能追加などは<code>custom-manis</code>からmergeする</li></ul></li></ul><hr><h2 id=サイトの見た目を変える>サイトの見た目を変える</h2><ul><li>区切り線が見にくい問題修正<ul><li>Manisテーマに元々<code>.sep</code>クラスの<code>&lt;hr></code>タグがあったのでそれを除外して指定した</li></ul></li></ul><pre><code class=language-css>/* Custom */
+.sep {
+  width: 100%;
+}
+hr:not(.sep) {
+  border: dashed 1px #999;
+  width: 90%;
+}
+</code></pre><ul><li><p>ヘッダをいじった</p><ul><li>Tagsをヘッダに追加したりタグ同士の隙間を調整したり</li></ul></li><li><p>シンタックスハイライトを変更</p><ul><li>デフォルトだと <strong>Pygments</strong> 使ってるがManisでは <strong>Highlight.js</strong> も標準搭載してるのでこちらを使ってみる</li><li>スタイルは <strong>hybrid</strong> が一番ダークテーマでもライトテーマでも見やすかった</li></ul></li><li><p>コピーライト直後の西暦表示を自動生成する</p><ul><li><code>layouts\partials\footer.html</code>をこうした</li></ul></li></ul><pre><code class=language-html>					{{ $pubyear := now.Format &quot;2006&quot; }}
+					{{ .Site.Copyright | safeHTML }}
+					{{ .Site.Params.Inityear | safeHTML }}{{ if ne $pubyear .Site.Params.Inityear }}-{{ $pubyear | safeHTML }}{{ end }}&amp;nbsp;{{ .Site.Params.Author | safeHTML }}
+</code></pre><ul><li>ついでにShortcode<code>layouts\shortcodes\year.html</code>も追加</li></ul><pre><code class=language-html>{{ $pubyear := now.Format &quot;2006&quot; }}{{ .Site.Params.Inityear | safeHTML }}{{ if ne $pubyear .Site.Params.Inityear }}-{{ $pubyear | safeHTML }}{{ end }}
+</code></pre><ul><li><p>robots.txtを追加</p></li><li><p>フォント周りをいじった</p><ul><li>Webフォントとして <strong>Segoe UIとInconsolata</strong> だけ追加</li><li>(cf.) <a href=https://gist.github.com/AndrewCraswell/106143d1bb5d4162689b9e1d89a2d0fb>Segoe UI Web Fonts</a></li></ul></li><li><p>テーマのメインカラーを変えた</p><ul><li>赤系の明るい文字色だとちょっとライトテーマの時に見づらかったので青系に変更</li></ul></li><li><p><strong>OGP</strong> 対応</p><ul><li>サクっと済ませた</li></ul></li></ul><p><strong>これでテーマ弄りは終了</strong></p><hr><h2 id=記事を作成する>記事を作成する</h2><h3 id=記事管理の方針>記事管理の方針</h3><ul><li><p>タグやカテゴリごとのディレクトリ管理は <strong>敢えて行わない</strong></p><ul><li>階層が無駄に深くなって <strong>管理コスト</strong> が上がる</li><li>西暦などをURLに入れたいなら<code>slug</code>に<code>YYYY/MM/SLUG</code>と設定すれば良い<ul><li>このとき実ファイルの位置は<code>content/posts</code>直下のまま</li></ul></li></ul></li><li><p>同じディレクトリでもMarkdownの <strong>ファイル名にタイムスタンプを入れる</strong> だけで管理しやすくなる(はず)</p><ul><li>各記事のFront matterに<code>slug</code>を設定しているのでファイル名の規則を<code>YY-MM-DD_HH.mm.ss_SLUG</code>にした</li><li>例えばこの記事だと下記の通りになる<ul><li>ファイル名が<code>2023-05-03_20.14.06_making-website-with-hugo.md</code></li><li>URLが<code>../2023/05/making-website-with-hugo</code></li></ul></li></ul></li></ul><h3 id=投稿する記事を用意>投稿する記事を用意</h3><ul><li><p>まず<a href=https://roodolv.github.io/about/>About</a>と<a href=https://roodolv.github.io/license/>License</a>を作成</p></li><li><p>次に<a href=https://roodolv.dev/posts/2023/05/initial-commit/>最初の記事</a>などを作成</p></li></ul><hr><h2 id=サイトを公開する>サイトを公開する</h2><h3 id=リポジトリ管理の方針>リポジトリ管理の方針</h3><ul><li>Hugoサイトのファイル群(ソース)は <strong>private</strong> リポジトリで管理</li><li>公開・デプロイ用のリポジトリは <strong>public</strong> にする</li><li>デプロイはGitHub Actionsで自動化<ul><li>privateリポジトリにpushすることでpublicリポジトリの方にデプロイされるように</li></ul></li></ul><h3 id=github-actionsで自動デプロイ>GitHub Actionsで自動デプロイ</h3><p>最初だけは手動でデプロイしようと思ったがGitHub Actionsでやっちゃった方が早そうなので先にActionsの設定をすることにした</p><ul><li>gh-pages.ymlの設定をしていく<ul><li>ここの<code>gh-pages.yml</code>をページ内の指示通りにカスタムして使うことに<ul><li><a href=https://github.com/peaceiris/actions-gh-pages>peaceiris/actions-gh-pages</a></li><li>指示: <a href=https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-deploy-to-external-repository-external_repository>https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-deploy-to-external-repository-external_repository</a></li></ul></li></ul></li></ul><pre><code class=language-yaml>name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Set a branch name to trigger deployment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true  # Fetch Hugo themes (true OR recursive)
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: '0.111.3'
+
+      - name: Build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: roodolv/roodolv.github.io
+          publish_branch: main
+          publish_dir: ./public
+          cname: roodolv.dev
+</code></pre><ul><li><p>デプロイキーの生成と設定</p><ul><li><code>ssh-keygen</code>で生成した公開鍵と秘密鍵のペアをそれぞれ下記のようにする</li><li>公開鍵: デプロイ先の<code>XXX.github.io</code>リポジトリ(public)の <strong>Deploy key</strong> に登録</li><li>秘密鍵: ソースの<code>myblog</code>リポジトリ(private)の <strong>Actions secrets and variables</strong> の <strong>Secrets</strong> に登録</li></ul></li><li><p>上記設定で <strong>自動デプロイに成功</strong></p><ul><li>CircleCIのそれと似た要領だなと思った</li></ul></li></ul><hr><h2 id=カスタムドメインを設定>カスタムドメインを設定</h2><h3 id=独自ドメインを取得>独自ドメインを取得</h3><ul><li>今回は <a href=https://domains.google/intl/ja_jp/>Google Domains</a>にお世話になることにした</li><li><code>roodolv.dev</code>ドメインを <strong>1400円(税抜)/年</strong><sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> で購入</li></ul><h3 id=独自ドメインを設定>独自ドメインを設定</h3><ul><li><p>参考</p><ul><li><a href=https://docs.github.com/ja/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site>GitHub Pages サイトのカスタムドメインを管理する - GitHub Docs</a></li><li><a href=https://zenn.dev/noraworld/articles/use-ssl-on-github-pages-with-cloudflare>GitHub Pages + CloudFlare で独自ドメインをSSL化する</a></li></ul></li><li><p>DNSプロバイダの方でレコード設定</p><ul><li>最初はGoogle DomainsでDNS設定しようと思ったが <a href=https://www.cloudflare.com/ja-jp/>Cloudflare</a> の方が高機能なのでそっちを使う</li></ul></li><li><p>Cloudflareにログインして先ほど購入したドメインを入力、DNSのページで下記を <strong>Aレコード</strong> として登録</p><ul><li>Apexドメインなので</li></ul></li></ul><pre><code class=language-txt>192.30.252.153
+192.30.252.154
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre><ul><li>DNSプロバイダ(Cloudflare)のネームサーバ2つをGoogle Domains側で設定</li></ul><pre><code class=language-txt>XXX.ns.cloudflare.com
+YYY.ns.cloudflare.com
+</code></pre><ul><li>DNSSECの設定をしておく<ul><li>まずCloudflare側のDashboardから <strong>DNS>Settings>DNSSEC</strong> と移動</li><li><strong>Enable DNSSEC</strong> みたいなやつをクリック</li><li>するとDS RecordやDigestなどの情報が表示されるのでレジストラ(Google Domains)の管理画面へ行く</li><li>Google DomainsではカスタムDNS設定のすぐ下にDNSSEC設定項目があるのでそこにさっきの情報群を貼り付ける</li><li>終了</li></ul></li></ul><h3 id=dnsのサーバが切り替わるのを待つ>DNSのサーバが切り替わるのを待つ</h3><ul><li><code>dig</code>コマンドを実行してこうなっていたらまだGoogle Domainsのままなので待機</li></ul><pre><code class=language-bash>❯ dig roodolv.dev +nostats +nocomments ns
+
+; &lt;&lt;&gt;&gt; DiG 9.16.16 &lt;&lt;&gt;&gt; roodolv.dev +nostats +nocomments ns
+;; global options: +cmd
+;roodolv.dev.                   IN      NS
+roodolv.dev.            21600   IN      NS      ns-cloud-a3.googledomains.com.
+(省略)
+ns-cloud-a4.googledomains.com. 238999 IN A      216.239.38.106
+ns-cloud-a4.googledomains.com. 239116 IN AAAA   2001:4860:4802:38::6a
+(省略)
+</code></pre><ul><li>こうなったらOK</li></ul><pre><code class=language-bash>❯ dig roodolv.dev +nostats +nocomments ns
+
+; &lt;&lt;&gt;&gt; DiG 9.16.16 &lt;&lt;&gt;&gt; roodolv.dev +nostats +nocomments ns
+;; global options: +cmd
+;roodolv.dev.                   IN      NS
+roodolv.dev.            262     IN      NS      xxxxxxxxx.ns.cloudflare.com.
+roodolv.dev.            262     IN      NS      xxxxxx.ns.cloudflare.com.
+</code></pre><h3 id=wwwサブドメインからのリダイレクト>wwwサブドメインからのリダイレクト</h3><p>設定する必要はないと思うが自分は何となく気になったので設定</p><ul><li><p>CloudflareのDNS設定から下記の<code>CNAME</code>レコードを追加</p><ul><li>レコードのNameを<code>www</code>にする</li><li>Contentを<code>ghs.googlehosted.com</code>にする</li></ul></li><li><p>次にDashboardからPage Rulesの項目に移動して新規Page Ruleを追加</p><ul><li>URL(required)を<code>www.YOUR_DOMAIN/*</code>にする<ul><li><code>/*</code>を忘れずに</li></ul></li><li>Pick a Settingを <strong>Forwarding URL</strong> にする</li><li>Select status code(required)を <strong>301 - Permanent Redirect</strong> にする</li><li>Enter destination URL(required)を<code>https://YOUR_DOMAIN/$1</code>にする<ul><li><code>https://</code>と<code>/$1</code>を忘れずに</li></ul></li></ul></li><li><p>これで上手くいけばリダイレクトされるようになる</p></li></ul><hr><h2 id=おわりに>おわりに</h2><p>サクっと出来てよかった</p><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>なんとこのブログにも維持費が発生してしまった&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></article><nav class="no-print post-nav"><a class=prev-post href=https://roodolv.dev/posts/2023/05/initial-commit/><img class=icon-text src=/img/prev.svg>ブログを作った</a></nav><script src=https://utteranc.es/client.js repo issue-term=url label theme=github-light crossorigin=anonymous async></script><div id=disqus_thread class=no-print></div><script type=text/javascript>(function(){if(window.location.hostname=="localhost")return;var t,e=document.createElement("script");e.type="text/javascript",e.async=!0,t="",e.src="//"+t+".disqus.com/embed.js",(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(e)})()</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><hr class=sep></main><footer class="container no-print"><div class=u-footer><a href=mailto:roodolv0x00@gmail.com><img class=icon-social src=/img/email.svg alt="Email Me!"></a>
+<a href=https://github.com/roodolv/><img class=icon-social src=/img/github.svg alt=Github></a>
+<a href=https://twitter.com/roodolv><img class=icon-social src=/img/twitter.svg alt=Twitter></a>
+<a href=https://roodolv.dev/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a><p>&copy;
+2023 roodolv
+| <a href=/license>License</a></p><a href=#brand><img class=icon-text src=/img/toup.svg alt="To Up">
+<span>Back to Up</span></a></div></footer><script>hljs.initHighlightingOnLoad()</script></body></html>
