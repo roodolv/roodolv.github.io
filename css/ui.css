@@ -598,8 +598,8 @@ blockquote {
   blockquote {
     margin: 1.75em -2em 1.75em -2em;
     padding: 0 1.5em 0 1.5em;
-    border-right:0.4em solid;
-    border-right-color: #2277ee;
+    /* border-right:0.4em solid; */
+    /* border-right-color: #2277ee; */
   }
 }
 

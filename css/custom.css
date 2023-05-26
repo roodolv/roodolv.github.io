@@ -29,3 +29,17 @@ hr:not(.sep) {
 .post-header > a {
   padding-right: 0.3rem;
 }
+
+article > h1, article > h2, article > h3, article > h4, article > h5 {
+  margin: 1.75em 0 0.7em 0;
+  padding: 0.3em 1em 0.1em 0.5em;
+  border-top: 0.05em solid;
+  border-color: #555;
+  width: 95%;
+}
+
+article > h1 { border-left: 0.5em  solid; }
+article > h2 { border-left: 0.4em  solid; }
+article > h3 { border-left: 0.3em  solid; }
+article > h4 { border-left: 0.25em solid; }
+article > h5 { border-left: 0.15em  solid; }
