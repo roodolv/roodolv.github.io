@@ -103,7 +103,7 @@ roodolv
 <script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js></script>
 <script>hljs.initHighlightingOnLoad()</script><script src=https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
 <script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js></script>
-<script>(function(e){const t=e.querySelectorAll("pre");if(t.length==0)return;for(let n=0;n<t.length;n++){const s=e.createElement("button");s.className="copy-button",s.textContent="Copy",t[n].insertBefore(s,t[n].firstElementChild),s.addEventListener("click",copy_code,!1)}})(document);function copy_code(){const e=this.nextElementSibling;window.getSelection().selectAllChildren(e),navigator.clipboard?navigator.clipboard.writeText(e.innerText).then(()=>{setTimeout(()=>{window.getSelection().removeAllRanges()},2e3)}).catch(e=>{alert(`コピーできませんでした
+<script>(function(e){const t=e.querySelectorAll("pre");if(t.length==0)return;for(let n=0;n<t.length;n++){const s=e.createElement("button");s.className="copy-button",s.textContent="Copy",t[n].insertBefore(s,t[n].firstElementChild),s.addEventListener("click",copy_code,!1)}})(document);function copy_code(){const e=this.nextElementSibling;window.getSelection().selectAllChildren(e),navigator.clipboard?navigator.clipboard.writeText(e.innerText).then(()=>{this.textContent="Copied!!",setTimeout(()=>{this.textContent="Copy",window.getSelection().removeAllRanges()},2e3)}).catch(e=>{alert(`コピーできませんでした
 お手数ですが選択されている部分を手動でコピーしてください
 
 `+e.message)}):alert(`このブラウザは Clipboard API 非対応です
