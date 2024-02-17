@@ -43,3 +43,32 @@ article > h2 { border-left: 0.4em  solid; }
 article > h3 { border-left: 0.3em  solid; }
 article > h4 { border-left: 0.25em solid; }
 article > h5 { border-left: 0.15em  solid; }
+
+/* Highlight.js */
+.hljs {
+  white-space: pre;
+  word-wrap: normal;
+  overflow-wrap: normal;
+}
+
+/* Code Copy button */
+.copy-button{
+  display: inline;
+  justify-content: right;
+  align-items: right;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  padding: 0 0.5em;
+  height: 30px;
+  border: thick double #ddd;
+  border-radius: 0.2em;
+  line-height: 1;
+  font-weight: semi-bold;
+  background: #1d1f21;
+  color: #fff;
+  cursor: pointer;
+}
+.copy-button:hover{
+  background: #777
+}

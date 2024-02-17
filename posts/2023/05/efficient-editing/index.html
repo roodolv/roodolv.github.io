@@ -1,8 +1,7 @@
 <!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:type" content="article"><meta property="og:url" content="https://roodolv.dev/posts/2023/05/efficient-editing/"><meta property="og:image" content="https://roodolv.dev/img/favicon.png"><meta property="og:title" content="記事の編集作業を効率化する - dolvlog"><meta property="og:site_name" content="dolvlog"><meta property="og:description" content><meta name=twitter:card content="summary"><meta name=twitter:image content="img/favicon.png"><meta name=twitter:title content="記事の編集作業を効率化する - dolvlog"><meta name=twitter:creator content="@roodolv"><meta name=generator content="Hugo 0.111.3"><title>記事の編集作業を効率化する - dolvlog</title><meta name=description content="毎日ブログを更新するわけではないが、Hugoで効率良く編集作業を出来るようにしないとブログの更新が億劫になりそうだったので色々設定した
 主に下記3つを利用して省力化
 Windows Terminal fenrir Obsidian Hugoサーバを一発で起動する 流石に毎回手打ちでhugo serv..."><link rel="shortcut icon" href=img/favicon.png><link rel=stylesheet href=/css/ui.css><link rel=stylesheet href=/css/custom.css><link rel=stylesheet href=/css/fonts.css><script defer src=/js/dark-mode.js></script>
-<link disabled id=dark-mode-theme rel=stylesheet href=/css/dark.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway"><link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/hybrid.min.css><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js></script>
-<script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js></script></head><body><header class="container no-print"><div class=u-header><nav class=bar><ul><li><a href=/><img class=icon-text src=/img/prev.svg></a></li><li><img class=icon-text id=dark-mode-toggle src=/img/moon-regular.svg alt="Toggle Dark Mode"></a></li><li><a href=/about>About</a></li><li><a href=/posts/>Posts</a></li><li><a href=/tags/>Tags</a></li></ul></nav></div></header><main class=container><article><header><hgroup id=brand><h1>記事の編集作業を効率化する</h1><h5><time datetime="2023-05-10 21:56:47 +0900 +0900">2023-05-10</time>
+<link disabled id=dark-mode-theme rel=stylesheet href=/css/dark.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway"></head><body><header class="container no-print"><div class=u-header><nav class=bar><ul><li><a href=/><img class=icon-text src=/img/prev.svg></a></li><li><img class=icon-text id=dark-mode-toggle src=/img/moon-regular.svg alt="Toggle Dark Mode"></a></li><li><a href=/about>About</a></li><li><a href=/posts/>Posts</a></li><li><a href=/tags/>Tags</a></li></ul></nav></div></header><main class=container><article><header><hgroup id=brand><h1>記事の編集作業を効率化する</h1><h5><time datetime="2023-05-10 21:56:47 +0900 +0900">2023-05-10</time>
 <span class="no-print post-header">-
 <a href=/tags/hugo>#hugo</a>
 <a href=/tags/windows-terminal>#windows-terminal</a>
@@ -29,7 +28,15 @@ Windows Terminal fenrir Obsidian Hugoサーバを一発で起動する 流石に
 <a href=https://github.com/roodolv/><img class=icon-social src=/img/github.svg alt=Github></a>
 <a href=https://twitter.com/roodolv><img class=icon-social src=/img/twitter.svg alt=Twitter></a>
 <a href=https://bsky.app/profile/roodolv.bsky.social><img class=icon-social src=/img/bluesky.svg alt=Bluesky></a>
-<a href=https://roodolv.dev/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a><p>&copy;
-2023-2024 roodolv
+<a href=https://roodolv.dev/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a><p>&copy; 2023-2024
+roodolv
 | <a href=/license>License</a></p><a href=#brand><img class=icon-text src=/img/toup.svg alt="To Up">
-<span>Back to Up</span></a></div></footer><script>hljs.initHighlightingOnLoad()</script></body></html>
+<span>Back to Up</span></a></div></footer><link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/hybrid.min.css><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/languages/go.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script><script src=https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js></script>
+<script>(function(e){const t=e.querySelectorAll("pre");if(t.length==0)return;for(let n=0;n<t.length;n++){const s=e.createElement("button");s.className="copy-button",s.textContent="Copy",t[n].insertBefore(s,t[n].firstElementChild),s.addEventListener("click",copy_code,!1)}})(document);function copy_code(){const e=this.nextElementSibling;window.getSelection().selectAllChildren(e),navigator.clipboard?navigator.clipboard.writeText(e.innerText).then(()=>{setTimeout(()=>{window.getSelection().removeAllRanges()},2e3)}).catch(e=>{alert(`コピーできませんでした
+お手数ですが選択されている部分を手動でコピーしてください
+
+`+e.message)}):alert(`このブラウザは Clipboard API 非対応です
+お手数ですが選択されている部分を手動でコピーしてください`)}</script></body></html>
