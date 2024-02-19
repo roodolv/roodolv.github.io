@@ -44,6 +44,11 @@ article > h3 { border-left: 0.3em  solid; }
 article > h4 { border-left: 0.25em solid; }
 article > h5 { border-left: 0.15em  solid; }
 
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Highlight.js */
 .hljs {
   white-space: pre;
