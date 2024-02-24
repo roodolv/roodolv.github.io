@@ -56,6 +56,37 @@ article > h5 { border-left: 0.15em  solid; }
   overflow-wrap: normal;
 }
 
+/* hljs:code-row-number */
+pre {
+  counter-reset: rowNumber;
+}
+pre span.row-number {
+  counter-increment: rowNumber;
+}
+pre span.row-number::before {
+  content:counter(rowNumber);
+  width: 2rem;
+  display: inline-block;
+  color: #888;
+}
+
+/* hljs:code-lang-name */
+.hljs-wrap {
+  position: relative; /* 絶対配置の基準 */
+}
+.hljs-wrap code[data-language]::before {
+  content: attr(data-language);
+  position:absolute;
+  top: 0;
+  right: 0;
+  color: #ccc;
+  display: inline-block;
+  padding: 0.5rem;
+}
+.hljs-wrap code[data-language] {
+  padding-top: 2rem;
+}
+
 /* Code Copy button */
 .copy-button{
   display: inline;
