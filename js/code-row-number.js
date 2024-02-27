@@ -1,5 +1,10 @@
 hljs.addPlugin({
   'after:highlightElement': ({ el, result }) => {
-    el.innerHTML = result.value.replace(/^/gm,'<span class="row-number"></span>');
+    const processedValue = result.value.replace(/\n$/, '');
+    el.innerHTML = processedValue.replace(/^(.*)$/gm, function(match, content) {
+      return `<span class="row-number"></span>${content || ' '}`;
+    });
   }
 });
+
+

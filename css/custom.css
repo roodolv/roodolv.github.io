@@ -50,41 +50,56 @@ article > h5 { border-left: 0.15em  solid; }
 }
 
 /* Highlight.js */
-.hljs {
+.hljs-wrap pre code {
   white-space: pre;
   word-wrap: normal;
-  overflow-wrap: normal;
+  overflow-wrap: break-word;
+  border-radius: 0.4em;
+  background: #282c34;
+  margin-top: 0.6rem;
+  z-index: 1;
+  display: inline-block;
 }
 
-/* hljs:code-row-number */
-pre {
+/* hljs:row-number */
+.hljs-wrap pre {
   counter-reset: rowNumber;
+  display: flex;
+  white-space: pre;
+  overflow-wrap: break-word;
+  flex-direction: column;
+  z-index: 2;
 }
-pre span.row-number {
+.hljs-wrap span.row-number::before {
   counter-increment: rowNumber;
-}
-pre span.row-number::before {
-  content:counter(rowNumber);
-  width: 2rem;
+  content: counter(rowNumber);
+  min-width: 3rem;
   display: inline-block;
   color: #888;
+  background: #282c34;
+  border-right: 1px solid #999;
+  margin-right: 10px;
+  text-align: center;
+  position: sticky;
+  left: 0;
+  z-index: 3;
 }
 
-/* hljs:code-lang-name */
-.hljs-wrap {
-  position: relative; /* 絶対配置の基準 */
-}
-.hljs-wrap code[data-language]::before {
+/* hljs:lang-name */
+.hljs-wrap pre::before {
+  display: inline-block;
   content: attr(data-language);
-  position:absolute;
+  position: absolute;
   top: 0;
   right: 0;
+  border-radius: 0.3em 0.3em 0 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin-right: 0.2rem;
+  margin-top: 0.6rem;
   color: #ccc;
-  display: inline-block;
-  padding: 0.5rem;
-}
-.hljs-wrap code[data-language] {
-  padding-top: 2rem;
+  background: #444;
+  z-index: 0;
 }
 
 /* Code Copy button */
@@ -97,6 +112,7 @@ pre span.row-number::before {
   -webkit-appearance: none;
   padding: 0 0.5em;
   height: 30px;
+  width: 120px;
   border: thick double #ddd;
   border-radius: 0.2em;
   line-height: 1;
