@@ -124,3 +124,30 @@ article > h5 { border-left: 0.15em  solid; }
 .copy-button:hover{
   background: #777
 }
+
+/* TOC */
+.xToc {
+  border: 1px solid #2277EE;
+  border-radius: 0.35em;
+  width: 65%;
+  padding: 1.1em 1.5em 0.3em 1.2em;
+  margin: auto;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.xToc ul {
+  list-style-type: none;
+}
+.xToc li {
+  padding-top: 0;
+}
+.xToc a {
+  color: #333 !important;
+  font-size: 0.95em !important;
+  font-weight: normal;
+  display: inline-block;
+  border-bottom: dashed 1px #555;
+}
+.xToc a:hover {
+  color: #2277EE !important;
+}
