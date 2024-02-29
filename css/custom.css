@@ -49,6 +49,14 @@ article > h5 { border-left: 0.15em  solid; }
   justify-content: space-between;
 }
 
+/* Tags list */
+.terms ul {
+  font-size: 1.6rem;
+}
+.terms li {
+  margin: 0;
+}
+
 /* Highlight.js */
 .hljs-wrap pre code {
   white-space: pre;
