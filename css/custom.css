@@ -116,12 +116,13 @@ article > h5 { border-left: 0.15em  solid; }
   -moz-appearance: none;
   -webkit-appearance: none;
   padding: 0 0.5em;
-  height: 30px;
-  width: 110px;
+  height: 26px;
+  width: 90px;
   border: thick double #ddd;
   border-radius: 0.2em;
   line-height: 1;
   font-weight: semi-bold;
+  font-size: 0.75em !important;
   background: #1d1f21;
   color: #fff;
   cursor: pointer;
