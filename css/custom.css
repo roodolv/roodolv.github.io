@@ -65,7 +65,7 @@ article > h5 { border-left: 0.15em  solid; }
   border-radius: 0.4em;
   background: #282c34;
   margin-top: 0.6rem;
-  z-index: 1;
+  /* z-index: 1; */
   display: inline-block;
 }
 
@@ -76,7 +76,7 @@ article > h5 { border-left: 0.15em  solid; }
   white-space: pre;
   overflow-wrap: break-word;
   flex-direction: column;
-  z-index: 2;
+  /* z-index: 2; */
 }
 .hljs-wrap span.row-number::before {
   counter-increment: rowNumber;
@@ -88,14 +88,14 @@ article > h5 { border-left: 0.15em  solid; }
   border-right: 1px solid #999;
   margin-right: 10px;
   text-align: center;
-  position: sticky;
+  position: relative;
   left: 0;
-  z-index: 3;
+  /* z-index: 3; */
 }
 
 /* hljs:lang-name */
 .hljs-wrap pre::before {
-  display: inline-block;
+  display: inline;
   content: attr(data-language);
   position: absolute;
   top: 0;
@@ -103,11 +103,12 @@ article > h5 { border-left: 0.15em  solid; }
   border-radius: 0.3em 0.3em 0 0;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+  padding-bottom: 0.5rem;
   margin-right: 0.2rem;
   margin-top: 0.6rem;
   color: #ccc;
   background: #444;
-  z-index: 0;
+  /* z-index: 0; */
 }
 
 /* Code Copy button */
@@ -137,7 +138,7 @@ article > h5 { border-left: 0.15em  solid; }
 .xToc {
   border: 1px solid #2277EE;
   border-radius: 0.35em;
-  width: 65%;
+  width: 75%;
   padding: 1.1em 1.5em 0.3em 1.2em;
   margin: auto;
   margin-top: 3rem;
