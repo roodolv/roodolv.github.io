@@ -1,11 +1,11 @@
 (function(d){
-  const pre = d.querySelectorAll('pre');
-  if(pre.length == 0){ return }
-  for(let i = 0; i < pre.length; i++){
+  const wrapper = d.getElementsByClassName('hljs-wrap');
+  if(wrapper.length == 0){ return }
+  for(let i = 0; i < wrapper.length; i++){
     const btn = d.createElement('button');
     btn.className = 'copy-button';
     btn.textContent = 'Copy';
-    pre[i].insertBefore(btn, pre[i].firstElementChild);
+    wrapper[i].insertBefore(btn, wrapper[i].firstElementChild);
     btn.addEventListener('click', copy_code, false)
   }
 })(document);

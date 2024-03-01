@@ -65,7 +65,6 @@ article > h5 { border-left: 0.15em  solid; }
   border-radius: 0.4em;
   background: #282c34;
   margin-top: 0.6rem;
-  /* z-index: 1; */
   display: inline-block;
 }
 
@@ -76,7 +75,6 @@ article > h5 { border-left: 0.15em  solid; }
   white-space: pre;
   overflow-wrap: break-word;
   flex-direction: column;
-  /* z-index: 2; */
 }
 .hljs-wrap span.row-number::before {
   counter-increment: rowNumber;
@@ -90,30 +88,28 @@ article > h5 { border-left: 0.15em  solid; }
   text-align: center;
   position: relative;
   left: 0;
-  /* z-index: 3; */
 }
 
 /* hljs:lang-name */
 .hljs-wrap pre::before {
-  display: inline;
   content: attr(data-language);
-  position: absolute;
-  top: 0;
-  right: 0;
+  display: inline-block;
+  position: static;
   border-radius: 0.3em 0.3em 0 0;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-bottom: 0.5rem;
-  margin-right: 0.2rem;
-  margin-top: 0.6rem;
+  padding-bottom: 3rem;
+  margin-left: 0.23rem;
+  margin-bottom: -1.2rem;
+  height: 30px;
+  width: 125px;
+  text-align: center;
   color: #ccc;
-  background: #444;
-  /* z-index: 0; */
+  background: #333;
 }
 
 /* Code Copy button */
 .copy-button{
   display: inline;
+  position: absolute;
   justify-content: right;
   align-items: right;
   appearance: none;
@@ -121,7 +117,7 @@ article > h5 { border-left: 0.15em  solid; }
   -webkit-appearance: none;
   padding: 0 0.5em;
   height: 30px;
-  width: 120px;
+  width: 110px;
   border: thick double #ddd;
   border-radius: 0.2em;
   line-height: 1;
@@ -129,6 +125,8 @@ article > h5 { border-left: 0.15em  solid; }
   background: #1d1f21;
   color: #fff;
   cursor: pointer;
+  margin-left: 135px;
+  z-index: 1;
 }
 .copy-button:hover{
   background: #777
