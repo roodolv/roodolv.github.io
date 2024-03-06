@@ -1,0 +1,63 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:type" content="article"><meta property="og:url" content="https://roodolv.dev/posts/2024/03/vscode-rust-settings/"><meta property="og:image" content="https://roodolv.dev/img/favicon.png"><meta property="og:title" content="VSCodeのRustまわりの環境を見直した - dolvlog"><meta property="og:site_name" content="dolvlog"><meta property="og:description" content><meta name=twitter:card content="summary"><meta name=twitter:image content="img/favicon.png"><meta name=twitter:title content="VSCodeのRustまわりの環境を見直した - dolvlog"><meta name=twitter:creator content="@roodolv"><meta name=generator content="Hugo 0.111.3"><title>VSCodeのRustまわりの環境を見直した - dolvlog</title><meta name=description content="最近VSCode用のRust設定を見直していたが、暫定的なものとして下記の設定に落ち着いた
+VSCodeのsettings.jsonより一部引用
+/* --------------------------------- */ // Rustの設定 /* -----------------------..."><link rel="shortcut icon" href=img/favicon.png><link rel=stylesheet href=/css/ui.css><link rel=stylesheet href=/css/custom.css><link rel=stylesheet href=/css/fonts.css><script defer src=/js/dark-mode.js></script>
+<link disabled id=dark-mode-theme rel=stylesheet href=/css/dark.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Fira+Mono|Lato|Raleway"></head><body><header class="container no-print"><div class=u-header><nav class=bar><ul><li><a href=/><img class=icon-text src=/img/prev.svg></a></li><li><img class=icon-text id=dark-mode-toggle src=/img/moon-regular.svg alt="Toggle Dark Mode"></a></li><li><a href=/about>About</a></li><li><a href=/posts/>Posts</a></li><li><a href=/tags/>Tags</a></li></ul></nav></div></header><main class=container><article><header><hgroup id=brand><h1>VSCodeのRustまわりの環境を見直した</h1><h5><time datetime="2024-03-06 19:12:42 +0900 +0900">2024-03-06</time>
+<span class="no-print post-header">-
+<a href=/tags/rust>#rust</a>
+<a href=/tags/vscode>#vscode</a>
+<span></h5></hgroup><hr class=sep></header><p>最近VSCode用のRust設定を見直していたが、暫定的なものとして下記の設定に落ち着いた</p><p>VSCodeの<code>settings.json</code>より一部引用</p><pre><code class=language-json>    /* --------------------------------- */
+    // Rustの設定
+    /* --------------------------------- */
+    &quot;[rust]&quot;: {
+        &quot;editor.tabSize&quot;: 4,
+        &quot;editor.defaultFormatter&quot;: &quot;rust-lang.rust-analyzer&quot;,
+        &quot;editor.formatOnSave&quot;: true,
+        // &quot;editor.semanticHighlighting.enabled&quot;: true,
+    },
+    /* -----------------------------------
+    // rust-analyzer設定(フォーマッター)
+    ----------------------------------- */
+    &quot;rust-analyzer.rustfmt.rangeFormatting.enable&quot;: true,
+    /* Default版のrustfmt */
+    // &quot;rust-analyzer.rustfmt.extraArgs&quot;: [&quot;--edition&quot;, &quot;2021&quot;],
+    /* Nightly版のrustfmt */
+    &quot;rust-analyzer.rustfmt.overrideCommand&quot;: [&quot;rustup&quot;, &quot;run&quot;, &quot;nightly&quot;, &quot;rustfmt&quot;, &quot;--unstable-features&quot;],
+    /* -----------------------------------
+    // rust-analyzer設定(リンター)
+    ----------------------------------- */
+    &quot;rust-analyzer.checkOnSave&quot;: true,
+    &quot;rust-analyzer.check.command&quot;: &quot;clippy&quot;,
+    &quot;rust-analyzer.check.extraArgs&quot;: [&quot;--&quot;, &quot;-A&quot;, &quot;clippy::needless_return&quot;],
+</code></pre><ul><li>参考: <a href=https://code.visualstudio.com/docs/languages/rust>Rust with Visual Studio Code</a></li></ul><p>ちなみにこちらが現在の<code>rustfmt.toml</code></p><pre><code class=language-toml>## stable
+# edition = &quot;2015&quot;
+tab_spaces = 4
+max_width = 160
+chain_width = 160
+match_block_trailing_comma = true
+# use_small_heuristics = &quot;Max&quot;
+single_line_if_else_max_width = 160
+single_line_let_else_max_width = 160
+
+## unstable
+unstable_features = true
+# indent_style = &quot;Visual&quot;
+brace_style = &quot;PreferSameLine&quot;
+match_arm_blocks = false
+fn_single_line = true
+where_single_line = true
+struct_lit_single_line = true
+</code></pre><ul><li>参考: <a href="https://rust-lang.github.io/rustfmt/?version=master&amp;search=">Configuring Rustfmt</a></li></ul><p>Nightly版の<code>rustfmt</code>を使うと<code>unstable</code>なオプションが利用できて便利だなと思う</p><p>特に、1行メソッドや<code>where</code>節などを無理やり改行されてしまうことが防げるのは大きいなと</p></article><hr><nav class="no-print post-nav"><div class=prev-post><a href=https://roodolv.dev/posts/2024/02/domain-transfer-to-cloudflare/><img class=icon-text src=/img/prev.svg>ドメインをCloudflareに移管した</a></div><div class=next-post></div></nav><script src=https://utteranc.es/client.js repo issue-term=url label theme=github-light crossorigin=anonymous async></script><div id=disqus_thread class=no-print></div><script type=text/javascript>(function(){if(window.location.hostname=="localhost")return;var t,e=document.createElement("script");e.type="text/javascript",e.async=!0,t="",e.src="//"+t+".disqus.com/embed.js",(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(e)})()</script><noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><hr class=sep></main><footer class="container no-print"><div class=u-footer><a href=mailto:roodolv0x00@gmail.com><img class=icon-social src=/img/email.svg alt="Email Me!"></a>
+<a href=https://github.com/roodolv/><img class=icon-social src=/img/github.svg alt=Github></a>
+<a href=https://twitter.com/roodolv><img class=icon-social src=/img/twitter.svg alt=Twitter></a>
+<a href=https://bsky.app/profile/roodolv.bsky.social><img class=icon-social src=/img/bluesky.svg alt=Bluesky></a>
+<a href=https://roodolv.dev/index.xml target=_blank><img class=icon-social src=/img/feed.svg alt=Feed></a><p>&copy; 2023-2024
+roodolv
+| <a href=/license>License</a></p><a href=#brand><img class=icon-text src=/img/toup.svg alt="To Up">
+<span>Back to Up</span></a></div></footer><link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/hybrid.min.css><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js></script>
+<script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js></script>
+<script src=/js/code-block-wrapper.js></script>
+<script src=/js/code-lang-name.js></script>
+<script src=/js/code-row-number.js></script>
+<script>hljs.highlightAll()</script><script src=https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js></script>
+<script src=/js/code-copy-button.js></script></body></html>
